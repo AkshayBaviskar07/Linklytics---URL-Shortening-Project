@@ -1,0 +1,2 @@
+package com.url.shortner.dtos;public class RegisterRequest {
+}
