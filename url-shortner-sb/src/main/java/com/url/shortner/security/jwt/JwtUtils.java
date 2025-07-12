@@ -63,11 +63,11 @@ public class JwtUtils {
                     .build().parseSignedClaims(authToken);
             return true;
         } catch (JwtException e) {
-            return false;
+            throw new RuntimeException();
         } catch (IllegalArgumentException e){
-           return false;
+            throw new RuntimeException();
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException();
         }
     }
 }
