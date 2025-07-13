@@ -1,0 +1,21 @@
+package com.url.shortner.repositories;
+
+import com.url.shortner.model.ClickEvent;
+import com.url.shortner.model.UrlMapping;
+import com.url.shortner.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public interface ClickEventsRepository extends JpaRepository<ClickEvent, Long> {
+    List<ClickEvent> findByUrlMappingAndClickDateBetween(UrlMapping urlMapping,
+                                                         LocalDateTime startDate,
+                                                         LocalDateTime endDate);
+
+    List<ClickEvent> findByUrlMappingInAndClickDateBetween(List<UrlMapping> urlMapping,
+                                                         LocalDateTime startDate,
+                                                         LocalDateTime endDate);
+
+
+}
