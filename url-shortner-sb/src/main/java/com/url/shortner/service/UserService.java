@@ -1,6 +1,7 @@
 package com.url.shortner.service;
 
 import com.url.shortner.dtos.LoginRequest;
+import com.url.shortner.dtos.RegisterRequest;
 import com.url.shortner.model.User;
 import com.url.shortner.repositories.UserRepository;
 import com.url.shortner.security.jwt.JwtAuthenticationResponse;
@@ -22,7 +23,12 @@ public class UserService {
     private AuthenticationManager authenticationManager;
     private JwtUtils jwtUtils;
 
-    public User registerUser(User user) {
+    public User registerUser(RegisterRequest registerRequest) {
+        User user = new User();
+        user.setUsername(registerRequest.getUsername());
+        user.setPassword(registerRequest.getPassword());
+        user.setEmail(registerRequest.getEmail());
+        user.setRole("ROLE_USER");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

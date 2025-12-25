@@ -49,9 +49,9 @@ public class UrlMappingService {
     private String generateShortUrl() {
         Random random = new Random();
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder shortUrl = new StringBuilder();
+        StringBuilder shortUrl = new StringBuilder(8);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 8; i++) {
             shortUrl.append(characters.charAt(
                     random.nextInt(characters.length())));
         }
@@ -60,7 +60,8 @@ public class UrlMappingService {
 
     public List<UrlMappingDTO> getUrlsByUser(User user) {
         return urlMappingRepository.findByUser(user).stream()
-                .map(this::convertToDTO).toList();
+                .map(this::convertToDTO)
+                .toList();
     }
 
     public List<ClickEventDTO> getClickEventsByDate(String shortUrl,

@@ -25,13 +25,10 @@ public class AuthController {
 
     @PostMapping("/public/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
-        User user = new User();
-        user.setUsername(registerRequest.getUsername());
-        user.setPassword(registerRequest.getPassword());
-        user.setEmail(registerRequest.getEmail());
-        user.setRole("ROLE_USER");
-
-        userService.registerUser(user);
+        User user = userService.registerUser(registerRequest);
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok("User registered successfully");
     }
 }
