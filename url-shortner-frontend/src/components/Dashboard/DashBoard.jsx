@@ -1,11 +1,14 @@
-import React from 'react'
-import Graph from './Graph'
-import { dummyData } from '../dummyData/data'
-import { useStoreContext } from '../contextApi/ContextApi'
-import { useFetchTotalClicks } from '../hooks/useQuery'
+import { useState } from 'react'
+import Graph from './Graph.jsx'
+import { dummyData } from '../../dummyData/data'
+import { useStoreContext } from '../../contextApi/ContextApi'
+import { useFetchTotalClicks } from '../../hooks/useQuery'
+import ShortenPopUp from './ShortenPopUp.jsx'
 
 export const DashBoard = () => {
+  const refetch = false;
   const { token } = useStoreContext();
+  const [shortenPopUp, setShortenPopUp] = useState(false);
 
   // console.log(useFetchTotalClicks(token, onError));
   const { isLoading: loader, data: totalClicks, isError } = useFetchTotalClicks(token, onError);
@@ -36,13 +39,21 @@ export const DashBoard = () => {
               <Graph graphData={totalClicks} />
             </div>
             <div className='py-5 sm:text-end text-center'>
-              <button className=" mt-8 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 cursor-pointer">
+              <button className=" mt-8 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 cursor-pointer"
+              onClick={() => { setShortenPopUp(true) }}
+              >
                 Create New Short URL
               </button>
             </div>
           </div>
         )
       }
+
+      <ShortenPopUp
+        refetch={refetch}
+        open={shortenPopUp}
+        setOpen={setShortenPopUp}
+      />
     </div>
   )
 }

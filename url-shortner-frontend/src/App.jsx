@@ -7,7 +7,7 @@ import Footer from './components/Footer'
 import RegisterPage from './components/RegisterPage'
 import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
-import { DashBoard } from './Dashboard/DashBoard.jsx'
+import { DashBoard } from './components/Dashboard/DashBoard.jsx'
 
 const App = () => {
   return (
