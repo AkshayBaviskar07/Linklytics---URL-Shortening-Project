@@ -28,3 +28,24 @@ export const useFetchTotalClicks = (token, onError) => {
     enabled: token !== null,
   })
 };
+
+export const useFetchMyShortUrls = (token, onError) => {
+  return useQuery({
+    queryKey: ["myShortUrls", token],
+    queryFn: async () => {
+      const response = await api.get(
+        "/api/urls/myurls", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+      return response.data;
+    },    
+    onError,
+    staleTime: 5000,
+    enabled: token !== null,
+  })
+}

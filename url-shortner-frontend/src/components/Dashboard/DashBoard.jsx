@@ -1,17 +1,20 @@
 import { useState } from 'react'
 import Graph from './Graph.jsx'
-import { dummyData } from '../../dummyData/data'
+// import { dummyData } from '../../dummyData/data'
 import { useStoreContext } from '../../contextApi/ContextApi'
-import { useFetchTotalClicks } from '../../hooks/useQuery'
+import { useFetchTotalClicks, useFetchMyShortUrls } from '../../hooks/useQuery'
 import ShortenPopUp from './ShortenPopUp.jsx'
+import ShortenUrlList from './shortenUrlList.jsx'
 
 export const DashBoard = () => {
-  const refetch = false;
+  // const refetch = false;
   const { token } = useStoreContext();
   const [shortenPopUp, setShortenPopUp] = useState(false);
 
   // console.log(useFetchTotalClicks(token, onError));
   const { isLoading: loader, data: totalClicks, isError } = useFetchTotalClicks(token, onError);
+
+  const { isLoading, data: myShortUrls, refetch } = useFetchMyShortUrls(token, onError);
 
   function onError() {
     console.log("Error fetching total clicks data");
@@ -40,11 +43,27 @@ export const DashBoard = () => {
             </div>
             <div className='py-5 sm:text-end text-center'>
               <button className=" mt-8 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300 cursor-pointer"
-              onClick={() => { setShortenPopUp(true) }}
+                onClick={() => { setShortenPopUp(true) }}
               >
                 Create New Short URL
               </button>
             </div>
+
+            <div> 
+              {!isLoading && myShortUrls.length === 0 ? (
+                <div className="flex justify-center pt-16">
+                  <div className="flex gap-2 items-center justify-center  py-6 sm:px-8 px-5 rounded-md   shadow-lg  bg-gray-50">
+                    <h1 className="text-slate-800 font-montserrat   sm:text-[18px] text-[14px] font-semibold mb-1 ">
+                      You haven't created any short link yet
+                    </h1>
+                    {/* <FaLink className="text-blue-500 sm:text-xl text-sm " /> */}
+                  </div>
+                </div>
+              ) : (
+                <ShortenUrlList data={myShortUrls}/> 
+              )}
+            </div>
+
           </div>
         )
       }

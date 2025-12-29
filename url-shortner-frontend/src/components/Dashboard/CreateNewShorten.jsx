@@ -42,6 +42,9 @@ const CreateNewShorten = ({ setOpen, refetch }) => {
           className: "mb-5"
         });
       });
+
+      // await refetch();
+
       reset();
       setOpen(false);
     } catch(error) {
