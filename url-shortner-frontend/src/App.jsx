@@ -1,28 +1,15 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import LandingPage from './components/LandingPage'
-import AboutPage from './components/AboutPage'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import RegisterPage from './components/RegisterPage'
-import Login from './components/Login'
-import { Toaster } from 'react-hot-toast'
-import { DashBoard } from './components/Dashboard/DashBoard.jsx'
+import { BrowserRouter,} from 'react-router-dom'
+import { getApps } from './utils/helper.js'
 
 const App = () => {
+
+  const CurrentApp = getApps();
+
   return (
     <div>
       <BrowserRouter>
-        <Navbar/>
-        <Toaster/>
-        <Routes>
-          <Route path="/" element={<LandingPage/>}/>
-          <Route path="/about" element={<AboutPage/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
-          <Route path='/login' element={<Login/>} />
-          <Route path='/dashboard' element={<DashBoard/>} />
-        </Routes>
-        <Footer/>
+        <CurrentApp/>
       </BrowserRouter>
     </div>
   )
