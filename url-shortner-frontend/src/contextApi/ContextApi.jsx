@@ -4,11 +4,9 @@ const ContextApi = createContext();
 
 export const ContextProvider = ({ children }) => {
   
-  const getToken = localStorage.getItem("JWT_TOKEN")
-    ? JSON.parse(localStorage.getItem("JWT_TOKEN"))
-    : null;
+  const getToken = localStorage.getItem("JWT_TOKEN");
 
-    const [token, setToken] = useState(getToken);
+    const [token, setToken] = useState(getToken || null);
 
     const sendData = {
       token, 
