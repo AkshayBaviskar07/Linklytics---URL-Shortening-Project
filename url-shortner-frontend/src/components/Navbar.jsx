@@ -2,19 +2,20 @@ import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { IoIosMenu } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
+import { useStoreContext } from '../contextApi/ContextApi.jsx';
 
 const Navbar = () => {
 
   const navigate = useNavigate();
+  const {token,setToken} = useStoreContext();
   const path = useLocation().pathname;
   const [navBarOpen, setNavBarOpen] = useState(false);
-  // const {token, setToken} = useStoreContext();
 
-  /* const onLogOutHandler = () => {
+  const onLogOutHandler = () => {
     setToken(null);
     localStorage.removeItem("JWT_TOKEN");
-    navigate("/");
-  } */
+    navigate("/login");
+  }
 
   return (
     <div className='h-16 bg-custom-gradient z-50 flex items-center sticky top-0'>
@@ -46,7 +47,7 @@ const Navbar = () => {
               About
             </Link>
           </li>
-          {/* {token && ( */}
+          {token && (
             <li className="hover:text-btnColor font-[500]  transition-all duration-150">
             <Link
               className={`${
@@ -56,23 +57,25 @@ const Navbar = () => {
             >
               Dashboard
             </Link>
-          </li>
-          {/* )} */}
-          {/* {!token && ( */}
+            </li>
+          )}
+
+          {!token && (
             <Link to="/register">
               <li className=" sm:ml-0 -ml-1 bg-rose-700 text-white  cursor-pointer w-24 text-center font-semibold px-2 py-2 rounded-md  hover:text-slate-300   transition-all duration-150">
                 SignUp
               </li>
             </Link>
-            {/* )} */}
+          )}
+            
 
-          {/* {token && ( */}
+          {token && (
             <button
-            //  onClick={onLogOutHandler}
+             onClick={onLogOutHandler}
              className="sm:ml-0 -ml-1 bg-rose-700 text-white  cursor-pointer w-24 text-center font-semibold px-2 py-2 rounded-md  hover:text-slate-300   transition-all duration-150">
               LogOut
             </button>
-            {/* )} */}
+          )}
         </ul>
 
         <button
