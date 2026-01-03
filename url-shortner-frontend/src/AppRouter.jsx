@@ -9,6 +9,7 @@ import { Toaster } from 'react-hot-toast'
 import { DashBoard } from './components/Dashboard/DashBoard.jsx'
 import ShortenUrlPage from './components/ShortenUrlPage.jsx';
 import PrivateRoute from "./PrivateRoute.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 const AppRouter = () => {
   return (
@@ -25,6 +26,9 @@ const AppRouter = () => {
           element={<PrivateRoute publicPage={true}><Login/></PrivateRoute>}/>
 
           <Route path='/dashboard' element={<PrivateRoute publicPage={false}><DashBoard/></PrivateRoute>}/>
+
+          <Route path='/*' element={<ErrorPage message="Page Not Found"/>}/>
+          <Route path='/error' element={<ErrorPage message="ERROR"/>}/>
         </Routes>
         <Footer/>
       </>
