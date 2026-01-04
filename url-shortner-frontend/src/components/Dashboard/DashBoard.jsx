@@ -5,26 +5,29 @@ import { useStoreContext } from '../../contextApi/ContextApi'
 import { useFetchTotalClicks, useFetchMyShortUrls } from '../../hooks/useQuery'
 import ShortenPopUp from './ShortenPopUp.jsx'
 import ShortenUrlList from './shortenUrlList.jsx'
+import { useNavigate } from 'react-router-dom'
+import Loader from '../Loader.jsx'
 
 export const DashBoard = () => {
   // const refetch = false;
   const { token } = useStoreContext();
   const [shortenPopUp, setShortenPopUp] = useState(false);
-
+  const navigate = useNavigate();
   // console.log(useFetchTotalClicks(token, onError));
   const { isLoading: loader, data: totalClicks, isError } = useFetchTotalClicks(token, onError);
 
   const { isLoading, data: myShortUrls, refetch } = useFetchMyShortUrls(token, onError);
 
   function onError() {
-    console.log("Error fetching total clicks data");
+    // console.log("Error fetching total clicks data");
+    navigate('/error');
   }
 
   return (
     <div className="lg:px-14 sm:px-8 px-4 min-h-[calc(100vh-64px)]">
       {
         loader ? (
-          <p>Loading...</p>
+          <Loader />
         ) : (
           <div className="lg:w-[90%] w-full mx-auto py-16">
             <div className=" h-96 relative ">
