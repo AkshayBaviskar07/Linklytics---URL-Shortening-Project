@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Graph from './Graph.jsx'
 // import { dummyData } from '../../dummyData/data'
 import { useStoreContext } from '../../contextApi/ContextApi'
@@ -14,13 +14,23 @@ export const DashBoard = () => {
   const [shortenPopUp, setShortenPopUp] = useState(false);
   const navigate = useNavigate();
   // console.log(useFetchTotalClicks(token, onError));
-  const { isLoading: loader, data: totalClicks, isError } = useFetchTotalClicks(token, onError);
+  const { isLoading: loader, data: totalClicks, isError: totalClicksError } = useFetchTotalClicks(token, onError);
 
-  const { isLoading, data: myShortUrls, refetch } = useFetchMyShortUrls(token, onError);
+  const { isLoading, data: myShortUrls, isError: shortUrlsError, refetch } = useFetchMyShortUrls(token, onError);
 
   function onError() {
     // console.log("Error fetching total clicks data");
-    navigate('/error');
+    // navigate('/error');
+  }
+
+  useEffect(() => {
+    if (totalClicksError || shortUrlsError) {
+      navigate('/error');
+    }
+  }, [totalClicksError, shortUrlsError, navigate]);
+
+  if (totalClicksError || shortUrlsError) {
+    return <Loader />
   }
 
   return (
