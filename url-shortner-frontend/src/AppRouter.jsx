@@ -28,7 +28,7 @@ const AppRouter = () => {
           <Route path='/dashboard' element={<PrivateRoute publicPage={false}><DashBoard/></PrivateRoute>}/>
 
           <Route path='/*' element={<ErrorPage message="Page Not Found"/>}/>
-          <Route path='/error' element={<ErrorPage message="ERROR"/>}/>
+          <Route path='/error' element={<ErrorPage/>}/>
         </Routes>
         <Footer/>
       </>
