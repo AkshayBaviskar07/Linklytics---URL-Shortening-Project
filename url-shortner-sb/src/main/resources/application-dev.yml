@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/urlshortnerdb
-    username: root
-    password: akshay
+    url: ${DEV_DB_URL}
+    username: ${DEV_DB_USERNAME}
+    password: ${DEV_DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,16 +11,11 @@ spring:
     show-sql: true
 
 jwt:
-  expiration: 1800000
-  secret: xP4h7ZcVQnA3oYdL1tR9Km6BeWfU0JsGvMzXqPb8LiEyTCaNRD5UHgSjFwZo3IkX
+  expiration: ${JWT_EXPIRATION}
+  secret: ${JWT_SECRET}
 
 frontend:
-  url: http://localhost:5173
+  url: ${FRONTEND_URL}
 
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
 
 
